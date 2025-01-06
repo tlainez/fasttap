@@ -1,0 +1,185 @@
+var pressToPlay;
+var hiscoreText;
+var display;
+var clickarea;
+var gameInfo;
+var modalIcon;
+var modalTitle;
+var modalBody;
+var modalForm;
+var userNameInput;
+var actionButton;
+var closeButton;
+var modal;	
+
+document.addEventListener('DOMContentLoaded', function() {
+	
+	hiscoreText = document.querySelector(".hiscore-text");
+	pressToPlay = document.querySelector("#press-to-play");
+	display = document.querySelector(".display");
+	clickarea = document.querySelector("#clickarea");
+	gameInfo = document.querySelector(".game-info");
+	
+    modalIcon = document.querySelector("#modal-icon");
+    modalTitle = document.querySelector("#modal-message-label");
+    modalBody = document.querySelector("#modal-message-body");
+    modalForm = document.querySelector("#frm-modal-message");
+    userNameInput = document.querySelector("#user-name");
+    actionButton = document.querySelector("#modal-action-btn");
+    closeButton = document.querySelector("#modal-close-btn");
+    modal = document.querySelector("#modal-message");	
+	
+	pressToPlay.addEventListener( "click", () => {
+		
+		hiscoreText.classList.add("d-none");
+		display.classList.add("collapsed");
+		clickarea.classList.remove("invisible");
+		gameInfo.classList.remove("d-none");
+		
+	});
+	
+    // Verificar si hay errores en la sesión
+    const errorToast = document.getElementById('errorToast');
+	console.log('>>errorToast:'+errorToast);
+    if (errorToast) {
+        // Si existe un mensaje de error, mostrar el toast
+        var toast = new bootstrap.Toast(errorToast,{delay: 2000});
+        toast.show();
+		}
+    // Escuchar el evento 'hidden.bs.modal', que se dispara cuando el modal se cierra completamente
+    document.querySelector('#modal-message').addEventListener( 'hidden.bs.modal', function () {
+        window.location.href = '/';
+	});	
+	
+	// Escuchar el evento de arrastrar el panel en dispositivos móviles
+	if ('ontouchstart' in window || navigator.maxTouchPoints) {
+		enableMobileSwipe();
+	}	
+});
+
+function newHiscore(score, idHiscore) {
+    showModalMessage({
+        icon: 'fa-star fa-beat-fade',
+        title: 'New High Score!',
+        body: `Congratulations! You scored <span class="fw-bold text-warning">${score}</span> points!`,
+        showForm: true,
+        actionUrl: `/hiscores/${idHiscore}`,
+        showActionButton: true,
+        actionButtonText: 'Save',
+	});
+}
+
+function showScoreMessage(score, body = null) {
+	const messageBody = body || `You scored <span class="fw-bold text-warning">${score}</span> points. Keep trying!`;
+	
+    showModalMessage({
+        icon: 'fa-ghost',
+        title: 'Game Over',
+        body: messageBody,
+        showForm: false,
+        showActionButton: false
+	});
+}
+
+function showModalMessage(options = {}) {
+    // Parámetros por defecto
+    const defaults = {
+        icon: 'fa-star', // Icono de FontAwesome
+        title: 'Message',
+        body: '',
+        score: null,
+        actionUrl: null,
+        showForm: false,
+        actionButtonText: 'Save',
+        closeButtonText: 'Close',
+	};
+	
+    // Combinar opciones del usuario con los valores por defecto
+    const settings = { ...defaults, ...options };
+	
+    // Configurar icono
+    modalIcon.className = `fa-solid ${settings.icon} mb-4`;
+	
+    // Configurar título y cuerpo
+    modalTitle.textContent = settings.title;
+    modalBody.innerHTML = settings.body; // Usar con cuidado para evitar inyecciones de HTML
+	
+    // Configurar formulario
+    if (settings.showForm && modalForm && userNameInput && actionButton) {
+        modalForm.setAttribute('action', settings.actionUrl || '');
+        userNameInput.value = ''; // Resetear el input
+        actionButton.textContent = settings.actionButtonText;
+        actionButton.classList.remove('d-none');
+        userNameInput.classList.remove('d-none');
+		} else if (userNameInput && actionButton) {
+        userNameInput.classList.add('d-none');
+        actionButton.classList.add('d-none');
+	}
+	
+    // Configurar botón de cerrar
+    closeButton.textContent = settings.closeButtonText;
+	
+    // Mostrar modal (suponiendo que Bootstrap 5 está en uso)
+    const bootstrapModal = new bootstrap.Modal(modal);
+    bootstrapModal.show();
+}
+
+
+function fetchWithCsrf(url, options = {}) {
+	// Configuración básica de Fetch con CSRF
+	const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+	
+    const headers = {
+        'X-CSRF-TOKEN': csrfToken,
+        ...options.headers,
+	};
+	
+    return fetch(url, { ...options, headers })
+	.then(response => {
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		return response.json();
+	});
+}
+
+/* Para dispositivos moviles */
+
+function enableMobileSwipe() {
+	let startY = 0; // Coordenada inicial del toque
+	let isDragging = false; // Bandera para rastrear si el usuario está arrastrando
+	
+	// Inicia el seguimiento al tocar
+	display.addEventListener("touchstart", (e) => {
+		startY = e.touches[0].clientY; // Guarda la posición inicial del toque
+		isDragging = true;
+	});
+	
+	// Sigue el movimiento mientras arrastras
+	display.addEventListener("touchmove", (e) => {
+		if (!isDragging) return;
+		const currentY = e.touches[0].clientY;
+		const distance = startY - currentY;
+		
+		if (distance > 50 && !display.classList.contains("collapsed")) {
+			// Deslizar hacia arriba para colapsar
+			hiscoreText.classList.add("d-none");
+			display.classList.add("collapsed");
+			clickarea.classList.remove("invisible");
+			gameInfo.classList.remove("d-none");
+			isDragging = false; // Termina el gesto
+			} else if (distance < -50 && display.classList.contains("collapsed")) {
+			// Deslizar hacia abajo para expandir
+			hiscoreText.classList.remove("d-none");
+			display.classList.remove("collapsed");
+			clickarea.classList.add("invisible");
+			gameInfo.classList.add("d-none");
+			isDragging = false; // Termina el gesto
+		}		
+	});
+	
+	// Finaliza el seguimiento al soltar
+	display.addEventListener("touchend", () => {
+		isDragging = false;
+	});
+}

@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use App\Services\ApiClient;
+use Illuminate\Support\Facades\Route;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Register services.
+     */
+    public function register(): void
+    {
+        $this->app->singleton(ApiClient::class, function ($app) {
+            return new ApiClient('http://localhost:8000/api');
+        });
+    }
+
+    /**
+     * Bootstrap services.
+     */
+	public function boot()
+	{
+		$this->routes(function () {
+			// Registrar las rutas de API
+			Route::middleware('api')
+				->prefix('api')
+				->group(base_path('routes/api.php'));
+
+			// Registrar las rutas web
+			Route::middleware('web')
+				->group(base_path('routes/web.php'));
+		});
+	}
+
+}

@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\HiscoreController;
+use App\Services\ApiClient;
+use App\Models\Hiscore;
+
+use Illuminate\Support\Facades\Log;
+
+class HomeController extends Controller
+{
+    protected $apiClient;
+
+    public function __construct(ApiClient $apiClient)
+    {
+        $this->apiClient = $apiClient;
+    }
+
+    public function index(HiscoreController $hiscoreController)
+    {
+        // Obtener hiscores
+		//Log::info('Dentro de HomeController.index');
+		try {
+			// Obtener los 10 primeros hiscores ordenados por score
+			$hiscores = $hiscoreController->index(8);
+			//Log::info('>>hiscores'.$hiscores);
+
+		} catch (\Exception $e) {
+			Log::error('Error al obtener los hiscores: ' . $e->getMessage());
+			$hiscores = [];
+		}
+
+		return view('index', compact('hiscores'));
+    }
+		
+}

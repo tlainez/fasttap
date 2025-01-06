@@ -1,0 +1,129 @@
+var gameName = "fasttap";
+var score = -1; // to store the current score
+var duration = 10; // 10 seconds
+var startTime; // start time
+var ended = false; // boolean indicating if game is ended
+var timerTxt;
+var scoreTxt;
+var startBtn;
+var clickArea;
+var hiscoreId; // to store the hiscoreID if the user reach one
+var circles;
+
+document.addEventListener('DOMContentLoaded',function() {
+	// we get DOM References for some HTML elements	
+	scoreTxt = document.querySelector('#score');
+	startBtn = document.querySelector('#start-btn');
+	clickArea = document.querySelector('#clickarea');
+	circles = document.querySelectorAll('.circle');
+	
+	startBtn.addEventListener("click", function() {
+		if (!ended) {
+			if (score === -1) {
+				startGame();
+			}
+			score++;
+			scoreTxt.textContent = score;
+			
+			if (score % 10 === 0) {
+				//const circleIndex = score / 10 - 1; // Índice del círculo correspondiente
+				const circleIndex = 10 - (score / 10); // Índice del círculo correspondiente
+				if (circleIndex >= 0 && circleIndex < circles.length) {
+					const circle = circles[circleIndex];
+					//!!circle.textContent = score;
+					
+					// Encuentra el elemento número dentro del círculo
+					const numberSpan = circle.querySelector('.number');
+					numberSpan.textContent = score;
+					
+					// Añadir animación al número
+					numberSpan.classList.add('number-animate');
+					circle.classList.add('circle-highlight');
+					
+					// Eliminar la clase después de la animación para permitir futuras repeticiones
+					setTimeout(() => {
+						numberSpan.classList.remove('number-animate');
+					}, 500); // Duración de la animación
+				}
+			}
+		}
+	});
+	
+});
+
+// we define two functions for showing or hiding a HTML element
+var show = function (elem) {
+	elem.style.display = "inline";
+};
+
+var hide = function (elem) {
+	elem.style.display = "none";
+};
+
+// Method called when the game starts
+function startGame() {
+	// we get start time
+	timerTxt = document.querySelector('#timer');
+	startTime = new Date().getTime();
+	
+	// we create a timer with the setInterval method
+	var timerId = setInterval(function () {
+		var total = (new Date().getTime() - startTime) / 1000;
+		
+		// while total lower than duration, we update timer and the clicks by seconds
+		if (total < duration) {
+			timerTxt.textContent = total.toFixed(3);
+			
+			} else {
+			// otherwise, game is ended, we clear interval and we set game as ended
+			ended = true;
+			clearInterval(timerId);
+			// we call the end game method
+			endGame();
+		}
+	}, 1);
+}
+
+// end game method
+function endGame() {
+	// we write final stats
+	timerTxt.textContent = duration.toFixed(3);
+	// we show start button to play an other game
+	//!!show(startBtn);  
+	checkScore();
+}
+
+function checkScore() {
+	fetchWithCsrf("/hiscores", {
+		method: "POST",
+		body: JSON.stringify({
+			game_name: gameName,
+			score: score
+		}),
+		headers: {
+			'Content-Type': 'application/json',
+		}
+	})
+    .then(response => {
+        if (response.isHighscore) {
+            // Si la puntuación está en el top 10
+            hiscoreId = response.id;
+            newHiscore(score, hiscoreId);
+			} else if (response.message) {
+				showScoreMessage(score, response.message);
+			} else {
+				showScoreMessage(score);
+			}
+		}
+	})
+    .catch(error => {
+        console.error(error);
+        alert("Hubo un error al enviar la puntuación.");
+	});
+}
+
+// we set a click event listener on the start button
+/*startBtn.addEventListener("click", function (e) {
+	startGame();
+});*/
+

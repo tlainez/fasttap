@@ -1,0 +1,164 @@
+:root {
+	--gold-text-color: #ffd700; /* Amarillo dorado */	
+}
+
+/* === Fuentes === */
+@font-face {
+    font-family: "LED scoreboard";
+    src: url('led_scoreboard.ttf') format('truetype');
+}
+
+/* === Estilos generales === */
+body {
+  background-image: url('/img/wall.jpg');
+  background-repeat: repeat;
+}
+
+/* === Display y monitor === */
+.display {
+	background-color: rgba(35, 13, 80, 0.23);
+	background-image: linear-gradient(to bottom, #1f0926, #100424);
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.53);
+	margin: 10px;
+	//padding: 20px;
+	text-align: left;
+	transition: height 1s ease; /* Transición suave */
+	height: 70vh; /* Altura predeterminada */
+}
+
+.display.collapsed {
+	height: 30px; /* Altura al hacer clic */
+	overflow: hidden; /* Oculta el contenido excedente */
+}
+
+.display-border {
+	z-index: 2;
+	position: relative;
+	background: #000;
+	border: 1px solid #000;
+	border-radius: 0 0 4px 4px;
+	background-clip: padding-box;
+	box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.04), 
+    0 1px 0 rgba(255, 255, 255, 0.15) inset;
+}
+
+.display-monitor {
+	position: absolute;
+	width: 100%;
+}
+
+.display-shine {
+	position: absolute;
+	width: 100%;
+	height: 50%;
+	pointer-events: none;
+	background-image: linear-gradient(to top, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+}
+
+/* === Texto general === */
+.hiscore-text,
+.press-to-play, .table-title, .game-info {
+	/*font-family: "Digital Dream", monospace;*/
+	font-family: "LED scoreboard", monospace;	
+	color: #a3c4fb;
+	font-size: 16px;
+	text-shadow: 0 0 5px #7852f2;
+	position: relative;
+	user-select: none;
+}
+
+.game-info #newHiscoreLabel {
+	animation: blink 2s infinite; /* Parpadeo lento */
+	color: var(--gold-text-color);
+}
+
+.hiscore-text {
+    display: flex;
+    justify-content: center; /* Alinea horizontalmente */
+    align-items: center;    /* Alinea verticalmente */
+}
+
+.table-title {
+	color: red;
+	font-size: 18px;
+	font-weight: bold;	
+	margin-bottom: 30px;
+}
+
+/* === Tabla === */
+
+table {
+	border-collapse: collapse;
+	max-width: 90%;
+}
+
+th, td {
+	padding: 4px;
+}
+
+th {
+	color: white;
+}
+
+/* Aplicar colores a las filas utilizando nth-child */
+tr:nth-child(1) td { color: Gold; }            /* Oro brillante */
+tr:nth-child(2) td { color: Cyan; }           /* Cian intenso */
+tr:nth-child(3) td { color: Lime; }           /* Verde lima */
+tr:nth-child(4) td { color: Orange; }         /* Naranja vibrante */
+tr:nth-child(5) td { color: Fuchsia; }        /* Fucsia */
+tr:nth-child(6) td { color: DeepSkyBlue; }    /* Azul cielo profundo */
+tr:nth-child(7) td { color: Yellow; }         /* Amarillo puro */
+tr:nth-child(8) td { color: White; }          /* Blanco */
+tr:nth-child(9) td { color: Aqua; }           /* Aqua */
+tr:nth-child(10) td { color: Red; }           /* Rojo intenso */
+
+
+/* === Botón "Press to Play" === */
+.press-to-play {
+	margin-top: 5%;
+	color: var(--gold-text-color); /* Amarillo dorado */
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	animation: blink 2s infinite; /* Parpadeo lento */
+	cursor: pointer;
+}
+
+/* === Animaciones === */
+@keyframes blink {
+	0%, 100% {
+		opacity: 1; /* Visible */
+	}
+	50% {
+		opacity: 0; /* Invisible */
+	}
+}
+
+@media (max-width: 768px) {
+	/* Ajustes para dispositivos móviles si es necesario */
+	.display {
+		transition: height 0.5s ease; /* Más rápida para móviles */
+	}
+}
+
+/* Modal */
+.modal.fade .modal-dialog {
+    transform: scale(0.7) !important;
+    opacity: 0 !important;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out !important;
+}
+
+#modal-icon {
+	color: #FFD43B;
+	font-size: 80px;
+}
+
+.modal-body {
+	padding-top: .6rem !important;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1) !important;
+    opacity: 1 !important;
+}

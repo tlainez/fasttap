@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ina Ring</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link href="{{ asset('css/fontawesome/fontawesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/fontawesome/solid.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/fontawesome/regular.min.css') }}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+	<!--x-topbar /-->
+
+	<div class="display-border">
+	  <div class="display-shine"></div>
+	  <div class="display-monitor"></div>
+	  <div class="display">
+		<span class="display-text">
+		  <table>
+			<thead>
+			  <tr>
+				<th>Rank</th>
+				<th>Score</th>
+				<th>Name</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+				<td>1</td>
+				<td>1500</td>
+				<td>Player1</td>
+			  </tr>
+			  <tr>
+				<td>2</td>
+				<td>1400</td>
+				<td>Player2</td>
+			  </tr>
+			  <tr>
+				<td>3</td>
+				<td>1300</td>
+				<td>Player3</td>
+			  </tr>
+			  <tr>
+				<td>4</td>
+				<td>1200</td>
+				<td>Player4</td>
+			  </tr>
+			  <tr>
+				<td>5</td>
+				<td>1100</td>
+				<td>Player5</td>
+			  </tr>
+			</tbody>
+		  </table>
+		</span>
+
+		<div class="press-to-play" id="press-to-play">PRESS TO PLAY</div>
+
+	  </div>
+	</div>
+
+
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>FastTap</title>
+		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/diana.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+		<link href="{{ asset('css/fontawesome/fontawesome.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('css/fontawesome/solid.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('css/fontawesome/regular.min.css') }}" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
+	</head>
+	
+	<body>
+		
+		<!--x-topbar /-->
+		
+		@if($errors->any())
+			<!-- Toast para el mensaje de error -->
+			<div id="errorToast" class="toast position-fixed top-0 p-2 z-3" role="alert" aria-live="assertive" aria-atomic="true">
+				<div class="toast-body">
+					<i class="fa-solid fa-triangle-exclamation text-danger"></i>
+					{{ $errors->first('message') }}
+				</div>
+			</div>
+		@endif
+		
+		<div class="display-border">
+			<div class="display-shine"></div>
+			<div class="display-monitor"></div>
+			<div class="display">
+				<span class="hiscore-text flex-column">
+					<div class="table-title text-center">Fast Finger <br>High Scores</div>
+					
+					<table class="hiscore-table">
+						<thead class="text-center">
+							<tr>
+								<th class="text-center">Rank</th>
+								<th class="text-center">Score</th>
+								<th>Name</th>
+							</tr>
+							<tr>
+								<th colspan="3"></th>
+							</tr>
+						</thead>
+						<tbody>
+							@if (!empty($hiscores) && $hiscores->count())
+							@foreach ($hiscores as $rank => $hiscore)
+							<tr data-rank="{{ $rank + 1 }}">
+								<td class="text-center">{{ $rank + 1 }}</td>
+								<td class="text-center">{{ $hiscore->score }}</td>
+								<td>{{ $hiscore->user_name }}</td>
+							</tr>
+							@endforeach
+							@else
+							<tr>
+								<td colspan="3" class="text-center">No data found!</td>
+							</tr>
+							@endif
+						</tbody>
+					</table>
+					
+					<div class="press-to-play" id="press-to-play">PRESS TO PLAY</div>
+				</span>
+				
+				<div class="game-info d-none">
+					Timer: <span id="timer"></span>
+					Score: <span id="score"></span>		
+				</div>				
+				
+			</div>
+		</div>
+		
+		<div class="modal fade" id="modal-message" tabindex="-1" aria-labelledby="modal-message-label" aria-hidden="true" data-bs-backdrop="static">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content bg-gradient">
+					<!-- Encabezado -->
+					<div class="modal-header border-0 text-center flex-wrap-reverse">
+						<div class="flex-column w-100">
+							<i id="modal-icon" class="fa-solid fa-star fa-beat-fade mb-4"></i>				
+							<h4 class="fw-bold" id="modal-message-label"></h4>
+						</div>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<!-- Cuerpo -->
+					<div class="modal-body text-center">
+						<p class="fs-5" id="modal-message-body"></p>
+						<form id="frm-modal-message" action="" method="POST" class="d-flex flex-column align-items-center">
+							@csrf
+							@method('PUT')
+							<input type="text" name="user-name" id="user-name" 
+								class="form-control rounded-pill mb-3" 
+								placeholder="Your name" 
+								style="max-width: 300px;" maxlength="15">							
+							<div class="d-flex justify-content-center gap-3">
+								<button id="modal-action-btn" type="submit" class="btn bg-primary rounded-pill px-4 text-white">Save</button>
+								<button id="modal-close-btn" type="button" class="btn bg-secondary rounded-pill px-4 text-white" data-bs-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="click-area-wrapper">
+			<div class="board-wrapper">
+				<div id="clickarea" class="target">
+					@for ($i = 1; $i <= 10; $i++)						
+						<div class="circle">
+							<span class="number"></span>
+						</div>
+					@endfor
+					<button id="start-btn">Push</button>
+				</div>
+			</div>
+		</div>
+		
+		<script src="{{ asset('js/app.js') }}"></script>
+		<script src="{{ asset('js/game.js') }}"></script>
+		<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+	</body>
+</html>
