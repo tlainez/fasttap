@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<title>FastTap</title>
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
-		<link rel="stylesheet" href="{{ asset('css/diana.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/scale.css') }}">
 		<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 		<link href="{{ asset('css/fontawesome/fontawesome.min.css') }}" rel="stylesheet">
 		<link href="{{ asset('css/fontawesome/solid.min.css') }}" rel="stylesheet">
@@ -18,13 +18,13 @@
 		<!--x-topbar /-->
 		
 		@if($errors->any())
-			<!-- Toast para el mensaje de error -->
-			<div id="errorToast" class="toast position-fixed top-0 p-2 z-3" role="alert" aria-live="assertive" aria-atomic="true">
-				<div class="toast-body">
-					<i class="fa-solid fa-triangle-exclamation text-danger"></i>
-					{{ $errors->first('message') }}
-				</div>
+		<!-- Toast para el mensaje de error -->
+		<div id="errorToast" class="toast position-fixed top-0 p-2 z-3" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-body">
+				<i class="fa-solid fa-triangle-exclamation text-danger"></i>
+				{{ $errors->first('message') }}
 			</div>
+		</div>
 		@endif
 		
 		<div class="display-border">
@@ -91,9 +91,9 @@
 							@csrf
 							@method('PUT')
 							<input type="text" name="user-name" id="user-name" 
-								class="form-control rounded-pill mb-3" 
-								placeholder="Your name" 
-								style="max-width: 300px;" maxlength="15">							
+							class="form-control rounded-pill mb-3" 
+							placeholder="Your name" 
+							style="max-width: 300px;" maxlength="15">							
 							<div class="d-flex justify-content-center gap-3">
 								<button id="modal-action-btn" type="submit" class="btn bg-primary rounded-pill px-4 text-white">Save</button>
 								<button id="modal-close-btn" type="button" class="btn bg-secondary rounded-pill px-4 text-white" data-bs-dismiss="modal">Close</button>
@@ -104,17 +104,35 @@
 			</div>
 		</div>
 		
-		<div id="click-area-wrapper">
+		<!--div id="click-area-wrapper">
 			<div class="board-wrapper">
-				<div id="clickarea" class="target">
-					@for ($i = 1; $i <= 10; $i++)						
-						<div class="circle">
-							<span class="number"></span>
-						</div>
-					@endfor
+			<div id="clickarea" class="scale">
+			@for ($i = 1; $i <= 10; $i++)						
+			<div class="circle">
+			<span class="number"></span>
+			</div>
+			@endfor
+			<button id="start-btn">Push</button>
+			</div>
+			</div>
+		</div-->
+		
+		<div class="strength-game-wrapper">
+			<div class="strength-game">
+				<!-- Círculo superior -->
+				<div class="button-wrapper scale-top">	
+					<div class="score-circle"><span class="text-white">100</span><i class="fa-solid fa-star"></i></div>
+				</div>
+				<!-- Regla con escala -->
+				<div id="clickarea" class="scale">
+					@for ($i = 1; $i <= 9; $i++)						
+					<div class="chunk"><span class="number"></span></div>
+					@endfor        
+				</div>		
+				<div class="button-wrapper scale-bottom">
 					<button id="start-btn">Push</button>
 				</div>
-			</div>
+			</div>			
 		</div>
 		
 		<script src="{{ asset('js/app.js') }}"></script>
