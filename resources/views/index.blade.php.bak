@@ -108,9 +108,9 @@
 		<!-- Sol y nuves-->
 		<div class="sun"></div>
 		<div class="clouds">
-			<img src="img/cloud2.png" alt="Nube 1" class="cloud" style="--size: 500px; --speed: 75s; --start: 0%; --top: 10%; --rotation: 0deg;">
-			<img src="img/cloud2.png" alt="Nube 2" class="cloud" style="--size: 400px; --speed: 65s; --start: -50%; --top: 20%; --rotation: 0deg;">
-			<img src="img/cloud2.png" alt="Nube 3" class="cloud" style="--size: 500px; --speed: 85s; --start: -70%; --top: 5%; --rotation: 180deg;">
+			<img src="img/cloud.png" alt="Nube 1" class="cloud" style="--size: 500px; --speed: 75s; --start: 0%; --top: 10%; --rotation: 0deg;">
+			<img src="img/cloud.png" alt="Nube 2" class="cloud" style="--size: 400px; --speed: 65s; --start: -50%; --top: 20%; --rotation: 0deg;">
+			<img src="img/cloud.png" alt="Nube 3" class="cloud" style="--size: 500px; --speed: 85s; --start: -70%; --top: 5%; --rotation: 180deg;">
 		</div>
 		
 		

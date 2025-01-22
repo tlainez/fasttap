@@ -33,7 +33,7 @@
 			<div class="display-monitor"></div>
 			<div class="display">
 				<span id="hiscore-text" class="led-text flex-column">
-					<div id ="table-title" class="led-text text-center">Fast Finger High Scores</div>
+					<div id ="table-title" class="led-text text-center">Fast Finger Hi-Scores</div>
 					
 					<table>
 						<thead class="text-center">

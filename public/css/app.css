@@ -75,7 +75,7 @@
 	color: red;
 	font-size: 18px;
 	font-weight: bold;	
-	margin-bottom: 30px;
+	margin: 2rem 0;
 }
 
 /* === Tabla === */
@@ -95,7 +95,7 @@ th {
 }
 
 /* Aplicar colores a las filas utilizando nth-child */
-tr:nth-child(1) td { color: Gold; }            /* Oro brillante */
+tr:nth-child(1) td { color: Gold; }           /* Oro brillante */
 tr:nth-child(2) td { color: Cyan; }           /* Cian intenso */
 tr:nth-child(3) td { color: Lime; }           /* Verde lima */
 tr:nth-child(4) td { color: Orange; }         /* Naranja vibrante */
@@ -104,8 +104,9 @@ tr:nth-child(6) td { color: DeepSkyBlue; }    /* Azul cielo profundo */
 tr:nth-child(7) td { color: Yellow; }         /* Amarillo puro */
 tr:nth-child(8) td { color: White; }          /* Blanco */
 tr:nth-child(9) td { color: Aqua; }           /* Aqua */
-tr:nth-child(10) td { color: Red; }           /* Rojo intenso */
-
+tr:nth-child(10) td { color: Crimson; }       /* Rojo intenso */
+tr:nth-child(11) td { color: Gold; }          /* Rojo intenso */
+tr:nth-child(12) td { color: LightCyan; }     /* Rojo intenso */
 
 /* === Botón "Press to Play" === */
 #press-to-play {
