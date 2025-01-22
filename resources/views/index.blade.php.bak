@@ -4,13 +4,14 @@
 		<meta charset="UTF-8">
 		<title>FastTap</title>
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
-		<link rel="stylesheet" href="{{ asset('css/diana.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/scale.css') }}">
 		<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 		<link href="{{ asset('css/fontawesome/fontawesome.min.css') }}" rel="stylesheet">
 		<link href="{{ asset('css/fontawesome/solid.min.css') }}" rel="stylesheet">
 		<link href="{{ asset('css/fontawesome/regular.min.css') }}" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
+		
 	</head>
 	
 	<body>
@@ -18,23 +19,23 @@
 		<!--x-topbar /-->
 		
 		@if($errors->any())
-			<!-- Toast para el mensaje de error -->
-			<div id="errorToast" class="toast position-fixed top-0 p-2 z-3" role="alert" aria-live="assertive" aria-atomic="true">
-				<div class="toast-body">
-					<i class="fa-solid fa-triangle-exclamation text-danger"></i>
-					{{ $errors->first('message') }}
-				</div>
+		<!-- Toast para el mensaje de error -->
+		<div id="errorToast" class="toast position-fixed top-0 p-2 z-3" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-body">
+				<i class="fa-solid fa-triangle-exclamation text-danger"></i>
+				{{ $errors->first('message') }}
 			</div>
+		</div>
 		@endif
 		
 		<div class="display-border">
 			<div class="display-shine"></div>
 			<div class="display-monitor"></div>
 			<div class="display">
-				<span class="hiscore-text flex-column">
-					<div class="table-title text-center">Fast Finger <br>High Scores</div>
+				<span id="hiscore-text" class="led-text flex-column">
+					<div id ="table-title" class="led-text text-center">Fast Finger High Scores</div>
 					
-					<table class="hiscore-table">
+					<table>
 						<thead class="text-center">
 							<tr>
 								<th class="text-center">Rank</th>
@@ -62,12 +63,12 @@
 						</tbody>
 					</table>
 					
-					<div class="press-to-play" id="press-to-play">^ PLAY ^</div>
+					<div class="led-text highlight" id="press-to-play">Press to play</div>
 				</span>
 				
-				<div class="game-info d-none">
+				<div id="game-info" class="led-text d-flex d-none">
 					Timer: <span id="timer"></span>
-					Score: <span id="score"></span>		
+					<span id="end-game-msg" class="led-text d-none">GAME OVER</div>
 				</div>				
 				
 			</div>
@@ -91,9 +92,9 @@
 							@csrf
 							@method('PUT')
 							<input type="text" name="user-name" id="user-name" 
-								class="form-control rounded-pill mb-3" 
-								placeholder="Your name" 
-								style="max-width: 300px;" maxlength="15">							
+							class="form-control rounded-pill mb-3" 
+							placeholder="Your name" 
+							style="max-width: 300px;" maxlength="15">							
 							<div class="d-flex justify-content-center gap-3">
 								<button id="modal-action-btn" type="submit" class="btn bg-primary rounded-pill px-4 text-white">Save</button>
 								<button id="modal-close-btn" type="button" class="btn bg-secondary rounded-pill px-4 text-white" data-bs-dismiss="modal">Close</button>
@@ -104,18 +105,38 @@
 			</div>
 		</div>
 		
-		<div id="click-area-wrapper">
-			<div class="board-wrapper">
-				<div id="clickarea" class="target">
-					@for ($i = 1; $i <= 10; $i++)						
-						<div class="circle">
-							<span class="number"></span>
-						</div>
-					@endfor
+		<!-- Sol y nuves-->
+		<div class="sun"></div>
+		<div class="clouds">
+			<img src="img/cloud2.png" alt="Nube 1" class="cloud" style="--size: 500px; --speed: 75s; --start: 0%; --top: 10%; --rotation: 0deg;">
+			<img src="img/cloud2.png" alt="Nube 2" class="cloud" style="--size: 400px; --speed: 65s; --start: -50%; --top: 20%; --rotation: 0deg;">
+			<img src="img/cloud2.png" alt="Nube 3" class="cloud" style="--size: 500px; --speed: 85s; --start: -70%; --top: 5%; --rotation: 180deg;">
+		</div>
+		
+		
+		<div class="strength-game-wrapper">
+			<div class="strength-game">
+				<!-- Círculo superior -->
+				<div class="button-wrapper scale-top">	
+					<div class="score-circle"><span class="text-white">100</span><i class="fa-solid fa-star"></i></div>
+				</div>
+				<!-- Regla con escala -->
+				<div class="scale-wrapper">
+					<div class="scale-container">
+						<div id="scale-cover"><span class="invisible" id="score"></span></div>
+						<div class="scale"></div>
+					</div>
+				</div>
+				
+				<!-- Base -->
+				<div class="pedestal">
 					<button id="start-btn">Push</button>
 				</div>
-			</div>
+			</div>			
 		</div>
+		
+        <!-- Suelo -->
+        <div class="ground"></div>		
 		
 		<script src="{{ asset('js/app.js') }}"></script>
 		<script src="{{ asset('js/game.js') }}"></script>

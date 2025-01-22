@@ -11,6 +11,7 @@
 		<link href="{{ asset('css/fontawesome/regular.min.css') }}" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
+		
 	</head>
 	
 	<body>
@@ -31,10 +32,10 @@
 			<div class="display-shine"></div>
 			<div class="display-monitor"></div>
 			<div class="display">
-				<span class="hiscore-text flex-column">
-					<div class="table-title text-center">Fast Finger <br>High Scores</div>
+				<span id="hiscore-text" class="led-text flex-column">
+					<div id ="table-title" class="led-text text-center">Fast Finger High Scores</div>
 					
-					<table class="hiscore-table">
+					<table>
 						<thead class="text-center">
 							<tr>
 								<th class="text-center">Rank</th>
@@ -62,12 +63,12 @@
 						</tbody>
 					</table>
 					
-					<div class="press-to-play" id="press-to-play">^ PLAY ^</div>
+					<div class="led-text highlight" id="press-to-play">Press to play</div>
 				</span>
 				
-				<div class="game-info d-none">
+				<div id="game-info" class="led-text d-flex d-none">
 					Timer: <span id="timer"></span>
-					Score: <span id="score"></span>		
+					<span id="end-game-msg" class="led-text d-none">GAME OVER</div>
 				</div>				
 				
 			</div>
@@ -104,18 +105,14 @@
 			</div>
 		</div>
 		
-		<!--div id="click-area-wrapper">
-			<div class="board-wrapper">
-			<div id="clickarea" class="scale">
-			@for ($i = 1; $i <= 10; $i++)						
-			<div class="circle">
-			<span class="number"></span>
-			</div>
-			@endfor
-			<button id="start-btn">Push</button>
-			</div>
-			</div>
-		</div-->
+		<!-- Sol y nuves-->
+		<div class="sun"></div>
+		<div class="clouds">
+			<img src="img/cloud.png" alt="Nube 1" class="cloud" style="--size: 500px; --speed: 75s; --start: 0%; --top: 10%; --rotation: 0deg;">
+			<img src="img/cloud.png" alt="Nube 2" class="cloud" style="--size: 400px; --speed: 65s; --start: -50%; --top: 20%; --rotation: 0deg;">
+			<img src="img/cloud.png" alt="Nube 3" class="cloud" style="--size: 500px; --speed: 85s; --start: -70%; --top: 5%; --rotation: 180deg;">
+		</div>
+		
 		
 		<div class="strength-game-wrapper">
 			<div class="strength-game">
@@ -124,16 +121,22 @@
 					<div class="score-circle"><span class="text-white">100</span><i class="fa-solid fa-star"></i></div>
 				</div>
 				<!-- Regla con escala -->
-				<div id="clickarea" class="scale">
-					@for ($i = 1; $i <= 9; $i++)						
-					<div class="chunk"><span class="number"></span></div>
-					@endfor        
-				</div>		
-				<div class="button-wrapper scale-bottom">
+				<div class="scale-wrapper">
+					<div class="scale-container">
+						<div id="scale-cover"><span class="invisible" id="score"></span></div>
+						<div class="scale"></div>
+					</div>
+				</div>
+				
+				<!-- Base -->
+				<div class="pedestal">
 					<button id="start-btn">Push</button>
 				</div>
 			</div>			
 		</div>
+		
+        <!-- Suelo -->
+        <div class="ground"></div>		
 		
 		<script src="{{ asset('js/app.js') }}"></script>
 		<script src="{{ asset('js/game.js') }}"></script>

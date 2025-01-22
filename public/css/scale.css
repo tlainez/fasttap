@@ -1,20 +1,80 @@
+html, body {
+	background: linear-gradient(to bottom, #87ceeb, #b0e0e6, #dff9fb);	
+	height: calc(100vh - 1px);
+    margin: 0;
+    padding: 0;
+	overflow: hidden;
+}
+
+.sun {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, white, yellow, lightyellow);
+    border-radius: 50%;
+    box-shadow: 0 0 30px yellow;
+    z-index: 1;
+}
+
+.clouds {
+	overflow: hidden;
+    position: absolute;
+	top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Las nubes no interfieren con la interacción del usuario */
+}
+
+.cloud {
+    position: absolute;
+    width: var(--size);
+    height: auto;
+    top: var(--top);
+    left: var(--start); /* Posición inicial fuera de la pantalla */
+	animation: moveClouds var(--speed) linear infinite;
+}
+
+@keyframes moveClouds {
+    0% {
+        transform: translateX(0) rotate(var(--rotation));
+	}
+    100% {
+        transform: translateX(120vw) rotate(var(--rotation)); /* Mueve las nubes más allá del ancho visible */
+	}
+}
+
+.cloud.no-animation {
+    animation: none; /* Desactiva la animación */
+}
+
 .strength-game-wrapper {
-position: absolute;
-width: 100%;
-top: 5rem;
+	position: absolute;
+	width: 100%;
+	bottom: 62px;
+	z-index: 2;	
 }
 .strength-game {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	position: relative;
+	background:url("/img/mountains2.png") repeat-x left bottom transparent;
 }
 
 .score-circle {
-	width: 40px;
-	height: 40px;
-	background: #d70505;
+	width: 70px;
+	height: 70px;
 	border-radius: 50%;
+	background: #8B4513;
+    background-image: repeating-linear-gradient(
+	45deg,
+	#8B4513 0px,
+	#8B4513 10px,
+	#A0522D 10px,
+	#A0522D 20px
+    );	
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -24,50 +84,89 @@ top: 5rem;
 	padding: 2rem;
     color: #ffd700;
     border-radius: 50%;
-    box-shadow: inset 0 -5px 20px rgba(0,0,0,0.5), inset 0 15px 20px rgba(255,255,255,0.5), /* Sombras internas */
-	0 0 10px rgba(0,0,0,0.3); /* Sombra exterior suave */
+    box-shadow: 0 0 10px rgba(0,0,0,0.3); /* Sombra exterior suave */
     cursor: pointer;	
 	user-select: none;
 }
 
-.scale {
+.scale-wrapper {
 	position: relative;
-	width: 12vw;
+	width: 50px;
     height: 48vh;
-	background: #ffd700;
-	padding: 10px;
+	background: #8B4513;
+	padding: 14px 10px 10px 10px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+    background-image: repeating-linear-gradient(
+	45deg,
+	#8B4513 0px,
+	#8B4513 10px,
+	#A0522D 10px,
+	#A0522D 20px
+    );	
+}
+.scale-container {
+	position: relative;
+	width: 100%; height: 100%;
 }
 
-.scale .chunk {
-	flex: 1;
-	background: #f6ecca;
-	border: 1px solid #e6d67f;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.scale {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%; height: 100%;
 	color: white;
 	font-size: 14px;
 	font-weight: bold;
+    background: linear-gradient(to top, 
+      #00ff00 0%,     /* Color para el valor 1 */
+      #7fff00 10%,    /* Color para el valor 2 */
+      #bfff00 20%,    /* Color para el valor 3 */
+      #ffff00 30%,    /* Color para el valor 4 */
+      #ffbf00 40%,    /* Color para el valor 5 */
+      #ff8000 50%,    /* Color para el valor 6 */
+      #ff4000 60%,    /* Color para el valor 7 */
+      #ff0000 70%,    /* Color para el valor 8 */
+      #d90000 80%,    /* Color para el valor 9 */
+      #b20000 90%     /* Color para el valor 10 */
+    );
+	z-index: 0;
 }
 
-.scale .chunk.completed:nth-child(10) { background: #ffb600; } /* Azul para el nivel más bajo */
-.scale .chunk.completed:nth-child(9) { background: #ffaa00; }
-.scale .chunk.completed:nth-child(8) { background: #ff9e00; }
-.scale .chunk.completed:nth-child(7) { background: #ff9100; }
-.scale .chunk.completed:nth-child(6) { background: #ff8500; }
-.scale .chunk.completed:nth-child(5) { background: #ff7900; }
-.scale .chunk.completed:nth-child(4) { background: #ff6000; }
-.scale .chunk.completed:nth-child(3) { background: #ff5400; }
-.scale .chunk.completed:nth-child(2) { background: #ff4800; }
-.scale .chunk.completed:nth-child(1) { background: red; } /* Rojo para el nivel más alto */
+#scale-cover {
+	position: relative;
+    text-align: center;
+    align-content: end;	
+	height: 100%;
+	background: #ffecb8;
+	z-index: 1;
+	transition: height 0.3s ease;
+}
 
-.chunk .number {
-    display: inline-block;
-	user-select: none;
-	line-height: 14px;
+#score {
+    bottom: 12px;
+    position: relative;
+    background-color: #007bff;
+    color: white;
+    padding-top: 2px;
+	width: 100%;
+	display: block;
+    font-weight: bold;
+	font-size: .8em;
+}
+
+#score::after {
+    content: "";
+    position: absolute;
+    bottom: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 10px solid #007bff;
 }
 
 @keyframes bounce {
@@ -88,23 +187,58 @@ top: 5rem;
 }
 
 .button-wrapper {
-	background: #ffd700;
-	padding: 10px;
+	background: #723600;
+	padding: 4px;
 	border-radius: 50%;
 }
 .button-wrapper.scale-top {
 	margin-bottom: -10px;
+	border: 10px inset #c27a47;
 	z-index: 1;
 }
 
 .button-wrapper.scale-bottom {
 	margin-top: -10px;
+	
+}
+
+.pedestal {
+    background: #8B4513; /* Marrón */
+    background-image: repeating-linear-gradient(
+	45deg,
+	#8B4513 0px,
+	#8B4513 10px,
+	#A0522D 10px,
+	#A0522D 20px
+    );
+    border: 10px inset #c27a47;
+	border-bottom: 0;
+    border-radius: 5px;
+    margin-top: -10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	padding: 12px 30px;
+    box-shadow:	inset 0 0 10px rgba(0, 0, 0, 0.3), /* Sombra general interna */
+	0 5px 10px rgba(0, 0, 0, 0.5); /* Sombra externa */
+	z-index: 1;
+}
+
+.ground {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index:2;
+	width: 100%;
+	height: 104px;
+	min-height:104px;
+	background:url("/img/ground.png") repeat-x 0 0 transparent;
 }
 
 #start-btn {
     position: relative;
-	width: 25vw;
-	height: 25vw;
+	width: 90px;
+	height: 90px;
     font: bold 1.2em Arial;
     color: #fff;
     background: linear-gradient(to top, #f00 50%, #ff6666 50%); /* Gradiente para simular el reflejo */
@@ -114,6 +248,7 @@ top: 5rem;
     cursor: pointer;
     transition: all 0.1s ease;
 	border: 6px solid #9a0404;
+	z-index: 3;
 }
 
 #start-btn:hover {

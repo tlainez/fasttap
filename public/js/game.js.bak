@@ -6,16 +6,17 @@ var ended = false; // boolean indicating if game is ended
 var timerTxt;
 var scoreTxt;
 var startBtn;
-var clickArea;
 var hiscoreId; // to store the hiscoreID if the user reach one
-var circles;
+var clouds;
+var endGameMsg;
 
 document.addEventListener('DOMContentLoaded',function() {
 	// we get DOM References for some HTML elements	
 	scoreTxt = document.querySelector('#score');
 	startBtn = document.querySelector('#start-btn');
-	clickArea = document.querySelector('#clickarea');
-	circles = document.querySelectorAll('.circle');
+	scaleCover = document.querySelector('#scale-cover');
+	clouds = document.querySelectorAll('.cloud');
+	endGameMsg = document.querySelector('#end-game-msg');
 	
 	startBtn.addEventListener("click", function() {
 		if (!ended) {
@@ -24,28 +25,7 @@ document.addEventListener('DOMContentLoaded',function() {
 			}
 			score++;
 			scoreTxt.textContent = score;
-			
-			if (score % 10 === 0) {
-				//const circleIndex = score / 10 - 1; // Índice del círculo correspondiente
-				const circleIndex = 10 - (score / 10); // Índice del círculo correspondiente
-				if (circleIndex >= 0 && circleIndex < circles.length) {
-					const circle = circles[circleIndex];
-					//!!circle.textContent = score;
-					
-					// Encuentra el elemento número dentro del círculo
-					const numberSpan = circle.querySelector('.number');
-					numberSpan.textContent = score;
-					
-					// Añadir animación al número
-					numberSpan.classList.add('number-animate');
-					circle.classList.add('circle-highlight');
-					
-					// Eliminar la clase después de la animación para permitir futuras repeticiones
-					setTimeout(() => {
-						numberSpan.classList.remove('number-animate');
-					}, 500); // Duración de la animación
-				}
-			}
+			scaleCover.style.height = (100 - score) + '%'; // Disminuye la altura para mostrar más de la escala
 		}
 	});
 	
@@ -62,34 +42,41 @@ var hide = function (elem) {
 
 // Method called when the game starts
 function startGame() {
-	// we get start time
-	timerTxt = document.querySelector('#timer');
-	startTime = new Date().getTime();
 	
-	// we create a timer with the setInterval method
-	var timerId = setInterval(function () {
-		var total = (new Date().getTime() - startTime) / 1000;
+	// Stop cloud animation
+    clouds.forEach(cloud => {
+        cloud.classList.toggle('no-animation');
+	});
+	scoreTxt.classList.toggle('invisible');
+	
+	// we get start time
+    const timerTxt = document.querySelector('#timer');
+    const startTime = Date.now();
+	
+    // Inicia el temporizador
+    timerId = setInterval(() => {
+        const elapsed = (Date.now() - startTime) / 1000; // Tiempo transcurrido en segundos
+        const remaining = duration - elapsed; // Tiempo restante
 		
-		// while total lower than duration, we update timer and the clicks by seconds
-		if (total < duration) {
-			timerTxt.textContent = total.toFixed(3);
-			
+        if (remaining > 0) {
+            // Actualiza el texto con el tiempo restante
+            timerTxt.textContent = remaining.toFixed(2);
 			} else {
-			// otherwise, game is ended, we clear interval and we set game as ended
-			ended = true;
-			clearInterval(timerId);
-			// we call the end game method
-			endGame();
+            // Fin del juego
+            ended = true;
+            clearInterval(timerId); // Limpia el intervalo
+            timerTxt.textContent = "0.00"; // Asegura que muestra exactamente 0 al finalizar
+            endGame(); // Llama a la función de finalización
 		}
-	}, 1);
+	}, 10); // Intervalo de 10ms
 }
 
 // end game method
 function endGame() {
-	// we write final stats
-	timerTxt.textContent = duration.toFixed(3);
-	// we show start button to play an other game
-	//!!show(startBtn);  
+	// Restart cloud animation
+    clouds.forEach(cloud => {
+        cloud.classList.toggle('no-animation');
+	}); 
 	checkScore();
 }
 
@@ -105,16 +92,24 @@ function checkScore() {
 		}
 	})
     .then(response => {
+		let nextAction;
+		endGameMsg.classList.toggle('d-none');
+		
         if (response.isHighscore) {
             // Si la puntuación está en el top 10
             hiscoreId = response.id;
-            newHiscore(score, hiscoreId);
-			} else if (response.message) {
-				showScoreMessage(score, response.message);
+			endGameMsg.textContent = "HIGH SCORE!!";
+			endGameMsg.classList.add('highlight');
+			
+			nextAction = () => newHiscore(score, hiscoreId);
+			
 			} else {
-				showScoreMessage(score);
-			}
+			endGameMsg.classList.add('text-white');
+			endGameMsg.textContent = "GAME OVER";
+
+            nextAction = () => window.location.href = "/";			
 		}
+		//!!setTimeout(nextAction, 3000);
 	})
     .catch(error => {
         console.error(error);
@@ -122,8 +117,4 @@ function checkScore() {
 	});
 }
 
-// we set a click event listener on the start button
-/*startBtn.addEventListener("click", function (e) {
-	startGame();
-});*/
 

@@ -14,11 +14,11 @@ var modal;
 
 document.addEventListener('DOMContentLoaded', function() {
 	
-	hiscoreText = document.querySelector(".hiscore-text");
+	hiscoreText = document.querySelector("#hiscore-text");
 	pressToPlay = document.querySelector("#press-to-play");
 	display = document.querySelector(".display");
-	clickarea = document.querySelector("#clickarea");
-	gameInfo = document.querySelector(".game-info");
+	//!!clickarea = document.querySelector("#clickarea");
+	gameInfo = document.querySelector("#game-info");
 	
     modalIcon = document.querySelector("#modal-icon");
     modalTitle = document.querySelector("#modal-message-label");
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		hiscoreText.classList.add("d-none");
 		display.classList.add("collapsed");
-		clickarea.classList.remove("invisible");
+		//!!clickarea.classList.remove("invisible");
 		gameInfo.classList.remove("d-none");
 		
 	});
