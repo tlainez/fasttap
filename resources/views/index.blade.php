@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>FastTap</title>
+		<link rel="preload" href="{{ asset('css/led_scoreboard.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous">
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 		<link rel="stylesheet" href="{{ asset('css/scale.css') }}">
 		<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
@@ -50,7 +51,7 @@
 							@if (!empty($hiscores) && $hiscores->count())
 							@foreach ($hiscores as $rank => $hiscore)
 							<tr data-rank="{{ $rank + 1 }}">
-								<td class="text-center">{{ $rank + 1 }}</td>
+								<td class="text-center">{{ $rank + 1 }}{{ getOrdinalSuffix($rank + 1) }}</td>
 								<td class="text-center">{{ $hiscore->score }}</td>
 								<td>{{ $hiscore->user_name }}</td>
 							</tr>
@@ -67,7 +68,7 @@
 				</span>
 				
 				<div id="game-info" class="led-text d-flex d-none">
-					Timer: <span id="timer"></span>
+					Timer: <span id="timer">10.00</span>
 					<span id="end-game-msg" class="led-text d-none">GAME OVER</div>
 				</div>				
 				

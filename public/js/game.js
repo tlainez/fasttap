@@ -45,7 +45,7 @@ function startGame() {
 	
 	// Stop cloud animation
     clouds.forEach(cloud => {
-        cloud.classList.toggle('no-animation');
+        cloud.classList.add('paused');
 	});
 	scoreTxt.classList.toggle('invisible');
 	
@@ -75,7 +75,7 @@ function startGame() {
 function endGame() {
 	// Restart cloud animation
     clouds.forEach(cloud => {
-        cloud.classList.toggle('no-animation');
+        cloud.classList.remove('paused');
 	}); 
 	checkScore();
 }
