@@ -14,7 +14,7 @@ class HiscoreController extends Controller
 	
 	public function index($limit = self::HISCORE_LIMIT)
 	{	
-		return Hiscore::whereNotNull('user_name') // Solo hiscores con nombre de usuario
+		$hiscores = Hiscore::whereNotNull('user_name') // Solo hiscores con nombre de usuario
 		->orderBy('score', 'desc')           // Ordenar por puntaje descendente
 		->take($limit)                       // Limitar al número indicado
 		->get();
@@ -28,11 +28,14 @@ class HiscoreController extends Controller
 			'user_name' => '',    // Nombre vacío
 			'score' => 0          // Puntaje cero
 			]);
-		}			
+		}
+		
+		return $hiscores;
 	}
 	
 	public function store(Request $request)
 	{
+		Log::info('Dentro de HiscoreController.store:'.$id);
 		// Eliminar registros temporales creados hace más de 10 minutos
 		Hiscore::whereNull('user_name')
 		->where('created_at', '<', now()->subMinutes(10))
@@ -61,12 +64,12 @@ class HiscoreController extends Controller
 		}
 		
 		// No es un hiscore
-		return response()->json(['isHighscore' => false,]);
+		return response()->json(['isHighscore' => false]);
 	}
 	
 	public function updateName(Request $request, $id)
 	{
-		Log::info('Dentro de HiscoreController.updateName:'.$id);
+		//Log::info('Dentro de HiscoreController.updateName:'.$id);
 		
 		try {
 			// Validar el nombre del usuario

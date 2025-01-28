@@ -51,11 +51,11 @@
 
 /* === Texto LED === */
 .led-text {
-	/*font-family: "Digital Dream", monospace;*/
 	font-family: "LED scoreboard", monospace;	
 	color: #a3c4fb;
 	font-size: 16px;
-	text-shadow: 0 0 5px #7852f2;
+	/*text-shadow: 0 0 5px #7852f2;*/
+	font-weight: bold;
 	position: relative;
 	user-select: none;
 }
@@ -73,9 +73,8 @@
 
 #table-title {
 	color: red;
-	font-size: 18px;
-	font-weight: bold;	
-	margin: 2rem 0;
+	font-size: 1.2rem;
+	margin: 1.7rem 0;
 }
 
 /* === Tabla === */
@@ -95,18 +94,21 @@ th {
 }
 
 /* Aplicar colores a las filas utilizando nth-child */
-tr:nth-child(1) td { color: Gold; }           /* Oro brillante */
-tr:nth-child(2) td { color: Cyan; }           /* Cian intenso */
-tr:nth-child(3) td { color: Lime; }           /* Verde lima */
-tr:nth-child(4) td { color: Orange; }         /* Naranja vibrante */
-tr:nth-child(5) td { color: Fuchsia; }        /* Fucsia */
-tr:nth-child(6) td { color: DeepSkyBlue; }    /* Azul cielo profundo */
-tr:nth-child(7) td { color: Yellow; }         /* Amarillo puro */
-tr:nth-child(8) td { color: White; }          /* Blanco */
-tr:nth-child(9) td { color: Aqua; }           /* Aqua */
-tr:nth-child(10) td { color: Crimson; }       /* Rojo intenso */
-tr:nth-child(11) td { color: Gold; }          /* Rojo intenso */
-tr:nth-child(12) td { color: LightCyan; }     /* Rojo intenso */
+tr:nth-child(1) td { color: Gold; }
+tr:nth-child(2) td { color: Cyan; }
+tr:nth-child(3) td { color: Lime; }
+tr:nth-child(4) td { color: Orange; }
+tr:nth-child(5) td { color: Fuchsia; }
+tr:nth-child(6) td { color: DeepSkyBlue; }
+tr:nth-child(7) td { color: Yellow; }
+tr:nth-child(8) td { color: White; }
+tr:nth-child(9) td { color: Aqua; }
+tr:nth-child(10) td { color: Crimson; }
+tr:nth-child(11) td { color: Gold; }
+tr:nth-child(12) td { color: Red; }
+tr:nth-child(13) td { color: Coral; }
+tr:nth-child(14) td { color: FloralWhite; }
+tr:nth-child(15) td { color: LightCyan; }
 
 /* === Botón "Press to Play" === */
 #press-to-play {

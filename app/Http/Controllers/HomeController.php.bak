@@ -23,8 +23,8 @@ class HomeController extends Controller
         // Obtener hiscores
 		//Log::info('Dentro de HomeController.index');
 		try {
-			// Obtener los 10 primeros hiscores ordenados por score
-			$hiscores = $hiscoreController->index(10);
+			// Obtener los N primeros hiscores ordenados por score
+			$hiscores = $hiscoreController->index(HiscoreController::HISCORE_LIMIT);
 			//Log::info('>>hiscores'.$hiscores);
 
 		} catch (\Exception $e) {

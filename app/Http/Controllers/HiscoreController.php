@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class HiscoreController extends Controller
 {
-	const HISCORE_LIMIT = 12;
+	const HISCORE_LIMIT = 15;
 	
 	public function index($limit = self::HISCORE_LIMIT)
 	{	
@@ -63,12 +63,12 @@ class HiscoreController extends Controller
 		}
 		
 		// No es un hiscore
-		return response()->json(['isHighscore' => false,]);
+		return response()->json(['isHighscore' => false]);
 	}
 	
 	public function updateName(Request $request, $id)
 	{
-		Log::info('Dentro de HiscoreController.updateName:'.$id);
+		//Log::info('Dentro de HiscoreController.updateName:'.$id);
 		
 		try {
 			// Validar el nombre del usuario

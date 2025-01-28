@@ -34,7 +34,7 @@
 			<div class="display-monitor"></div>
 			<div class="display">
 				<span id="hiscore-text" class="led-text flex-column">
-					<div id ="table-title" class="led-text text-center">Fast Finger Hi-Scores</div>
+					<div id ="table-title" class="led-text text-center">FASTTAP Hi-Scores</div>
 					
 					<table>
 						<thead class="text-center">
@@ -51,7 +51,7 @@
 							@if (!empty($hiscores) && $hiscores->count())
 							@foreach ($hiscores as $rank => $hiscore)
 							<tr data-rank="{{ $rank + 1 }}">
-								<td class="text-center">{{ $rank + 1 }} {{ getOrdinalSuffix($rank + 1) }}</td>
+								<td class="text-center">{{ $rank + 1 }}{{ getOrdinalSuffix($rank + 1) }}</td>
 								<td class="text-center">{{ $hiscore->score }}</td>
 								<td>{{ $hiscore->user_name }}</td>
 							</tr>
@@ -95,10 +95,12 @@
 							<input type="text" name="user-name" id="user-name" 
 							class="form-control rounded-pill mb-3" 
 							placeholder="Your name" 
-							style="max-width: 300px;" maxlength="15">							
+							style="max-width: 300px;" 
+							maxlength="15"
+							disabled oninput="checkUserName()">							
 							<div class="d-flex justify-content-center gap-3">
-								<button id="modal-action-btn" type="submit" class="btn bg-primary rounded-pill px-4 text-white">Save</button>
-								<button id="modal-close-btn" type="button" class="btn bg-secondary rounded-pill px-4 text-white" data-bs-dismiss="modal">Close</button>
+								<button id="modal-action-btn" type="submit" class="btn bg-primary rounded-pill px-4 text-white" disabled>Save</button>
+								<!--button id="modal-close-btn" type="button" class="btn bg-secondary rounded-pill px-4 text-white" data-bs-dismiss="modal">Close</button-->
 							</div>
 						</form>
 					</div>

@@ -1,7 +1,6 @@
 var pressToPlay;
 var hiscoreText;
 var display;
-var clickarea;
 var gameInfo;
 var modalIcon;
 var modalTitle;
@@ -17,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	hiscoreText = document.querySelector("#hiscore-text");
 	pressToPlay = document.querySelector("#press-to-play");
 	display = document.querySelector(".display");
-	//!!clickarea = document.querySelector("#clickarea");
 	gameInfo = document.querySelector("#game-info");
 	
     modalIcon = document.querySelector("#modal-icon");
@@ -33,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		hiscoreText.classList.add("d-none");
 		display.classList.add("collapsed");
-		//!!clickarea.classList.remove("invisible");
 		gameInfo.classList.remove("d-none");
 		
 	});
@@ -57,17 +54,20 @@ document.addEventListener('DOMContentLoaded', function() {
 	}	
 });
 
+function checkUserName() {
+	actionButton.disabled = !input.value.trim(); // Si el campo está vacío, se deshabilita
+}
+
 function newHiscore(score, idHiscore) {
     showModalMessage({
         icon: 'fa-star fa-beat-fade',
         title: 'New High Score!',
-        body: `Congratulations! You scored <span class="fw-bold text-warning">${score}</span> points!`,
+        body: `Great!!! You scored <span class="fw-bold text-warning">${score}</span> points!`,
         showForm: true,
         actionUrl: `/hiscores/${idHiscore}`,
         showActionButton: true,
         actionButtonText: 'Save',
 	});
-	
 }
 
 function showScoreMessage(score, body = null) {
@@ -118,11 +118,11 @@ function showModalMessage(options = {}) {
 	}
 	
     // Configurar botón de cerrar
-    closeButton.textContent = settings.closeButtonText;
+    //!!closeButton.textContent = settings.closeButtonText;
 	
     // Mostrar modal (suponiendo que Bootstrap 5 está en uso)
     const bootstrapModal = new bootstrap.Modal(modal);
-    //!!bootstrapModal.show();
+    bootstrapModal.show();
 }
 
 
@@ -166,13 +166,11 @@ function enableMobileSwipe() {
 			// Deslizar hacia arriba para colapsar
 			hiscoreText.classList.add("d-none");
 			display.classList.add("collapsed");
-			clickarea.classList.remove("invisible");
 			gameInfo.classList.remove("d-none");
 			isDragging = false; // Termina el gesto
 			} else if (distance < -50 && display.classList.contains("collapsed")) {
 			// Deslizar hacia abajo para expandir
 			hiscoreText.classList.remove("d-none");
-			clickarea.classList.add("invisible");
 			gameInfo.classList.add("d-none");
 			display.classList.remove("collapsed");
 			isDragging = false; // Termina el gesto
