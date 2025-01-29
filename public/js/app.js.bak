@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Si existe un mensaje de error, mostrar el toast
         var toast = new bootstrap.Toast(errorToast,{delay: 2000});
         toast.show();
-		}
+	}
     // Escuchar el evento 'hidden.bs.modal', que se dispara cuando el modal se cierra completamente
     document.querySelector('#modal-message').addEventListener( 'hidden.bs.modal', function () {
         window.location.href = '/';
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function checkUserName() {
-	actionButton.disabled = !input.value.trim(); // Si el campo está vacío, se deshabilita
+	actionButton.disabled = !userNameInput.value.trim(); // Si el campo está vacío, se deshabilita
 }
 
 function newHiscore(score, idHiscore) {
@@ -166,13 +166,17 @@ function enableMobileSwipe() {
 			// Deslizar hacia arriba para colapsar
 			hiscoreText.classList.add("d-none");
 			display.classList.add("collapsed");
-			gameInfo.classList.remove("d-none");
+			setTimeout(() => {
+				gameInfo.classList.remove("d-none");
+			}, 1000); // Tiempo en milisegundos
 			isDragging = false; // Termina el gesto
 			} else if (distance < -50 && display.classList.contains("collapsed")) {
 			// Deslizar hacia abajo para expandir
-			hiscoreText.classList.remove("d-none");
 			gameInfo.classList.add("d-none");
-			display.classList.remove("collapsed");
+			display.classList.remove("collapsed");			
+			setTimeout(() => {
+				hiscoreText.classList.remove("d-none");
+			}, 1000); // Tiempo en milisegundos
 			isDragging = false; // Termina el gesto
 		}		
 	});

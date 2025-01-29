@@ -170,9 +170,9 @@ function enableMobileSwipe() {
 			isDragging = false; // Termina el gesto
 			} else if (distance < -50 && display.classList.contains("collapsed")) {
 			// Deslizar hacia abajo para expandir
-			hiscoreText.classList.remove("d-none");
 			gameInfo.classList.add("d-none");
 			display.classList.remove("collapsed");
+			hiscoreText.classList.remove("d-none");
 			isDragging = false; // Termina el gesto
 		}		
 	});

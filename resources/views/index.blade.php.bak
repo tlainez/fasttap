@@ -31,7 +31,6 @@
 		
 		<div class="display-border">
 			<div class="display-shine"></div>
-			<div class="display-monitor"></div>
 			<div class="display">
 				<span id="hiscore-text" class="led-text flex-column">
 					<div id ="table-title" class="led-text text-center">FASTTAP Hi-Scores</div>
