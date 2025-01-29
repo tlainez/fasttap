@@ -60,7 +60,7 @@ function checkUserName() {
 
 function newHiscore(score, idHiscore) {
     showModalMessage({
-        icon: 'fa-star fa-beat-fade',
+        icon: 'fa-star',
         title: 'New High Score!',
         body: `Great!!! You scored <span class="fw-bold text-warning">${score}</span> points!`,
         showForm: true,
@@ -92,7 +92,7 @@ function showModalMessage(options = {}) {
         actionUrl: null,
         showForm: false,
         actionButtonText: 'Save',
-        closeButtonText: 'Close',
+        closeButtonText: 'Cancel',
 	};
 	
     // Combinar opciones del usuario con los valores por defecto
@@ -118,7 +118,7 @@ function showModalMessage(options = {}) {
 	}
 	
     // Configurar botón de cerrar
-    //!!closeButton.textContent = settings.closeButtonText;
+    closeButton.textContent = settings.closeButtonText;
 	
     // Mostrar modal (suponiendo que Bootstrap 5 está en uso)
     const bootstrapModal = new bootstrap.Modal(modal);

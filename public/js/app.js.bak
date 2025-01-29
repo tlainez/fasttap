@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Si existe un mensaje de error, mostrar el toast
         var toast = new bootstrap.Toast(errorToast,{delay: 2000});
         toast.show();
-	}
+		}
     // Escuchar el evento 'hidden.bs.modal', que se dispara cuando el modal se cierra completamente
     document.querySelector('#modal-message').addEventListener( 'hidden.bs.modal', function () {
         window.location.href = '/';
@@ -60,7 +60,7 @@ function checkUserName() {
 
 function newHiscore(score, idHiscore) {
     showModalMessage({
-        icon: 'fa-star fa-beat-fade',
+        icon: 'fa-star',
         title: 'New High Score!',
         body: `Great!!! You scored <span class="fw-bold text-warning">${score}</span> points!`,
         showForm: true,
@@ -118,7 +118,7 @@ function showModalMessage(options = {}) {
 	}
 	
     // Configurar botón de cerrar
-    //!!closeButton.textContent = settings.closeButtonText;
+    closeButton.textContent = settings.closeButtonText;
 	
     // Mostrar modal (suponiendo que Bootstrap 5 está en uso)
     const bootstrapModal = new bootstrap.Modal(modal);
@@ -166,17 +166,13 @@ function enableMobileSwipe() {
 			// Deslizar hacia arriba para colapsar
 			hiscoreText.classList.add("d-none");
 			display.classList.add("collapsed");
-			setTimeout(() => {
-				gameInfo.classList.remove("d-none");
-			}, 1000); // Tiempo en milisegundos
+			gameInfo.classList.remove("d-none");
 			isDragging = false; // Termina el gesto
 			} else if (distance < -50 && display.classList.contains("collapsed")) {
 			// Deslizar hacia abajo para expandir
 			gameInfo.classList.add("d-none");
-			display.classList.remove("collapsed");			
-			setTimeout(() => {
-				hiscoreText.classList.remove("d-none");
-			}, 1000); // Tiempo en milisegundos
+			display.classList.remove("collapsed");
+			hiscoreText.classList.remove("d-none");
 			isDragging = false; // Termina el gesto
 		}		
 	});

@@ -97,8 +97,8 @@
 							maxlength="15"
 							oninput="checkUserName()">							
 							<div class="d-flex justify-content-center gap-3">
-								<button id="modal-action-btn" type="submit" class="btn bg-primary rounded-pill px-4 text-white" disabled>Save</button>
-								<!--button id="modal-close-btn" type="button" class="btn bg-secondary rounded-pill px-4 text-white" data-bs-dismiss="modal">Close</button-->
+								<button id="modal-close-btn" type="button" class="btn bg-secondary rounded-pill px-4 text-white" data-bs-dismiss="modal">Cancel</button>
+								<button id="modal-action-btn" type="submit" class="btn bg-primary rounded-pill px-5 text-white" disabled>Save</button>
 							</div>
 						</form>
 					</div>
