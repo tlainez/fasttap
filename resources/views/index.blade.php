@@ -31,7 +31,6 @@
 		
 		<div class="display-border">
 			<div class="display-shine"></div>
-			<div class="display-monitor"></div>
 			<div class="display">
 				<span id="hiscore-text" class="led-text flex-column">
 					<div id ="table-title" class="led-text text-center">FASTTAP Hi-Scores</div>
@@ -79,12 +78,12 @@
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content bg-gradient">
 					<!-- Encabezado -->
-					<div class="modal-header border-0 text-center flex-wrap-reverse">
-						<div class="flex-column w-100">
-							<i id="modal-icon" class="fa-solid fa-star fa-beat-fade mb-4"></i>				
+					<div class="modal-header border-0 text-center position-relative">
+						<button type="button" class="btn-close position-absolute top-0 end-0 m-2" data-bs-dismiss="modal" aria-label="Close"></button>
+						<div class="w-100">
+							<i id="modal-icon" class="fa-solid fa-star mb-4"></i>                
 							<h4 class="fw-bold" id="modal-message-label"></h4>
 						</div>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<!-- Cuerpo -->
 					<div class="modal-body text-center">

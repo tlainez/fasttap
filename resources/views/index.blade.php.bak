@@ -79,12 +79,12 @@
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content bg-gradient">
 					<!-- Encabezado -->
-					<div class="modal-header border-0 text-center flex-wrap-reverse">
-						<div class="flex-column w-100">
-							<i id="modal-icon" class="fa-solid fa-star fa-beat-fade mb-4"></i>				
+					<div class="modal-header border-0 text-center position-relative">
+						<button type="button" class="btn-close position-absolute top-0 end-0 m-2" data-bs-dismiss="modal" aria-label="Close"></button>
+						<div class="w-100">
+							<i id="modal-icon" class="fa-solid fa-star mb-4"></i>                
 							<h4 class="fw-bold" id="modal-message-label"></h4>
 						</div>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<!-- Cuerpo -->
 					<div class="modal-body text-center">
@@ -97,7 +97,7 @@
 							placeholder="Your name" 
 							style="max-width: 300px;" 
 							maxlength="15"
-							disabled oninput="checkUserName()">							
+							oninput="checkUserName()">							
 							<div class="d-flex justify-content-center gap-3">
 								<button id="modal-action-btn" type="submit" class="btn bg-primary rounded-pill px-4 text-white" disabled>Save</button>
 								<!--button id="modal-close-btn" type="button" class="btn bg-secondary rounded-pill px-4 text-white" data-bs-dismiss="modal">Close</button-->

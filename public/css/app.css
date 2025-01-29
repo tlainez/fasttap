@@ -10,8 +10,9 @@
 
 /* === Display y monitor === */
 .display {
-	background-color: rgba(35, 13, 80, 0.23);
-	background-image: linear-gradient(to bottom, #1f0926, #100424);
+	background-color: black;
+	background-image: radial-gradient(#17202a 1px, black 2px);
+    background-size: 4px 4px;	
 	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.53);
 	margin: 10px;
 	text-align: left;
@@ -36,17 +37,12 @@
     0 1px 0 rgba(255, 255, 255, 0.15) inset;
 }
 
-.display-monitor {
-	position: absolute;
-	width: 100%;
-}
-
 .display-shine {
 	position: absolute;
 	width: 100%;
 	height: 50%;
 	pointer-events: none;
-	background-image: linear-gradient(to top, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+	background-image: linear-gradient(to top, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
 }
 
 /* === Texto LED === */
