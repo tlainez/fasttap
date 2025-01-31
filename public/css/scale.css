@@ -64,8 +64,8 @@ html, body {
 }
 
 .score-circle {
-	width: 60px;
-	height: 60px;
+	width: 50px;
+	height: 50px;
 	border-radius: 50%;
 	background: #8B4513;
     background-image: repeating-linear-gradient(
@@ -79,16 +79,15 @@ html, body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;	
-	padding: 2rem;
+	padding: 1.7em;
     color: #ffd700;
-    border-radius: 50%;
     box-shadow: 0 0 10px rgba(0,0,0,0.3); /* Sombra exterior suave */
     cursor: pointer;	
 	user-select: none;
 }
 
 .score-circle i {
-	font-size: 2.5em;
+	font-size: 2.3em;
 	color: #47402a;
     opacity: 0.4;
     mix-blend-mode: multiply;
@@ -193,7 +192,6 @@ html, body {
 
 .button-wrapper {
 	background: #723600;
-	padding: 4px;
 	border-radius: 50%;
 }
 .button-wrapper.scale-top {
@@ -230,7 +228,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-	padding: 12px 30px;
+	padding: 15px 30px;
     box-shadow:	inset 0 0 10px rgba(0, 0, 0, 0.3), /* Sombra general interna */
 	0 5px 10px rgba(0, 0, 0, 0.5); /* Sombra externa */
 	z-index: 1;
@@ -250,8 +248,8 @@ html, body {
 
 #start-btn {
     position: relative;
-	width: 90px;
-	height: 90px;
+	width: 100px;
+	height: 100px;
     font: bold 1.2em Arial;
     color: #fff;
     background: linear-gradient(to top, #f00 50%, #ff6666 50%); /* Gradiente para simular el reflejo */
