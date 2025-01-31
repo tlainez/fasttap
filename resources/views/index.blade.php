@@ -119,18 +119,21 @@
 			<div class="strength-game">
 				<!-- Círculo superior -->
 				<div class="button-wrapper scale-top">	
-					<div class="score-circle"><span class="text-white">100</span><i class="fa-solid fa-star"></i></div>
+					<div class="score-circle"><i class="fa-solid fa-star"></i></div>
 				</div>
 				<!-- Regla con escala -->
 				<div class="scale-wrapper">
+				<span class="text-white fw-bold">100</span>
 					<div class="scale-container">
 						<div id="scale-cover"><span class="invisible" id="score"></span></div>
 						<div class="scale"></div>
 					</div>
 				</div>
+								
+				<!-- Base -->				
+				<div class="pedestal-top"></div>
 				
-				<!-- Base -->
-				<div class="pedestal">
+				<div class="pedestal">					
 					<button id="start-btn">Push</button>
 				</div>
 			</div>			

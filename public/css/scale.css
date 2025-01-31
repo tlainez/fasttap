@@ -64,8 +64,8 @@ html, body {
 }
 
 .score-circle {
-	width: 70px;
-	height: 70px;
+	width: 60px;
+	height: 60px;
 	border-radius: 50%;
 	background: #8B4513;
     background-image: repeating-linear-gradient(
@@ -78,9 +78,7 @@ html, body {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
-	font-size: 18px;
-	font-weight: bold;
+	align-items: center;	
 	padding: 2rem;
     color: #ffd700;
     border-radius: 50%;
@@ -89,12 +87,19 @@ html, body {
 	user-select: none;
 }
 
+.score-circle i {
+	font-size: 2.5em;
+	color: #47402a;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+}
+
 .scale-wrapper {
 	position: relative;
 	width: 50px;
     height: 48vh;
 	background: #8B4513;
-	padding: 14px 10px 10px 10px;
+	padding: 10px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -199,6 +204,14 @@ html, body {
 
 .button-wrapper.scale-bottom {
 	margin-top: -10px;	
+}
+
+.pedestal-top {
+    position: relative;
+    width: 100px;
+    height: 17px;
+    background: #8B4513;
+    border-radius: 10px;
 }
 
 .pedestal {
